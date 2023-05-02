@@ -1,20 +1,17 @@
 package org.pjotr;
 
 public class Bank {
-    public static boolean getToegangVault(boolean iswerknemer, boolean isbaas, boolean ismanager, int jareninDienst) {
+    public static boolean getToegangVault(boolean isbaas, boolean ismanager, int jareninDienst) {
         if(isbaas){
             System.out.println("De baas heeft toegang tot de kluis en kassa");
             return true;
         }else{
-            if (iswerknemer) {
-                if(ismanager && jareninDienst > 8){
+            if (ismanager) {
+                if(jareninDienst > 8){
                     System.out.println("De manager heeft toegang tot de kluis en kassa");
                     return true;
-                }else if(ismanager && jareninDienst < 8){
-                    System.out.println("De manager heeft toegang tot de kassa, maar niet de kluis");
-                    return false;
                 }else{
-                    System.out.println("De Werknemer heeft toegang tot de kassa, maar niet de kluis");
+                    System.out.println("De manager heeft toegang tot de kassa, maar niet de kluis");
                     return false;
                 }
             } else {

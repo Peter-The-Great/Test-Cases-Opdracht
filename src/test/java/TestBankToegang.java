@@ -10,19 +10,16 @@ public class TestBankToegang {
     @Test
     public void TestBankToegangCondition(){
         // Test case 1: baas heeft toegang
-        assertTrue(Bank.getToegangVault(false, true, false, 0));
+        assertTrue(Bank.getToegangVault(true, false, 0));
 
-        // Test case 2: manager met meer dan 8 jaar dienst heeft toegang
-        assertTrue(Bank.getToegangVault(true, false, true, 9));
+        // Test case 2: manager heeft toegang tot kluis en kassa
+        assertTrue(Bank.getToegangVault(false, true, 9));
 
-        // Test case 3: manager met minder dan 8 jaar dienst heeft geen toegang tot kluis
-        assertFalse(Bank.getToegangVault(true, false, true, 5));
+        // Test case 3: manager heeft alleen toegang tot kassa
+        assertFalse(Bank.getToegangVault(false, true, 5));
 
-        // Test case 4: werknemer zonder managersrechten heeft geen toegang tot kluis
-        assertFalse(Bank.getToegangVault(true, false, false, 0));
-
-        // Test case 5: klanten hebben geen toegang
-        assertFalse(Bank.getToegangVault(false, false, false, 0));
+        // Test case 4: klant heeft geen toegang
+        assertFalse(Bank.getToegangVault(false, false, 0));
     }
 
     /**
@@ -30,25 +27,17 @@ public class TestBankToegang {
      */
     @Test
     public void TestBankToegangDecision() {
-        // Testcase 1: baas heeft toegang tot de kluis en kassa
-        boolean resultaat = Bank.getToegangVault(false, true, false, 0);
-        assertTrue(resultaat);
+        // Test case 1: Baas heeft toegang tot kluis en kassa
+        assertTrue(Bank.getToegangVault(true, false, 0));
 
-        // Testcase 2: werknemer is manager met meer dan 8 jaar in dienst, heeft toegang tot kluis en kassa
-        resultaat = Bank.getToegangVault(true, false, true, 9);
-        assertTrue(resultaat);
+        // Test case 2: Manager heeft toegang tot kluis en kassa
+        assertTrue(Bank.getToegangVault(false, true, 10));
 
-        // Testcase 3: werknemer is manager met minder dan 8 jaar in dienst, heeft toegang tot kassa, maar niet kluis
-        resultaat = Bank.getToegangVault(true, false, true, 7);
-        assertFalse(resultaat);
+        // Test case 3: Manager heeft toegang tot kassa, maar niet de kluis
+        assertFalse(Bank.getToegangVault(false, true, 5));
 
-        // Testcase 4: werknemer is geen manager, heeft toegang tot kassa, maar niet kluis
-        resultaat = Bank.getToegangVault(true, false, false, 0);
-        assertFalse(resultaat);
-
-        // Testcase 5: klanten hebben geen toegang tot de kluis of kassa
-        resultaat = Bank.getToegangVault(false, false, false, 0);
-        assertFalse(resultaat);
+        // Test case 4: Klant heeft geen toegang tot kluis of kassa
+        assertFalse(Bank.getToegangVault(false, false, 0));
     }
 
     /**
@@ -57,79 +46,53 @@ public class TestBankToegang {
     @Test
     public void TestBankToegangCONDITIONDECISION() {
         // Decision 1: isbaas
-        assertTrue(Bank.getToegangVault(false, true, false, 0));
-        assertFalse(Bank.getToegangVault(false, false, false, 0));
+        assertTrue(Bank.getToegangVault(true, false, 0)); // expected output: true
+        assertFalse(Bank.getToegangVault(false, false, 0)); // expected output: false
 
-        // Decision 2a: !isbaas && iswerknemer && !ismanager
-        assertFalse(Bank.getToegangVault(true, false, false, 0));
-        assertFalse(Bank.getToegangVault(true, false, false, 8));
-        assertFalse(Bank.getToegangVault(true, false, false, 9));
+        // Decision 2: ismanager
+        assertTrue(Bank.getToegangVault(false, true, 10)); // expected output: true
+        assertFalse(Bank.getToegangVault(false, false, 10)); // expected output: false
 
-        // Decision 2b: !isbaas && iswerknemer && ismanager
-        assertFalse(Bank.getToegangVault(true, false, true, 0));
-        assertFalse(Bank.getToegangVault(true, false, true, 8));
-        assertTrue(Bank.getToegangVault(true, false, true, 9));
-
-        // Decision 2c: !isbaas && !iswerknemer
-        assertFalse(Bank.getToegangVault(false, false, false, 0));
+        // Decision 3: jareninDienst > 8
+        assertTrue(Bank.getToegangVault(false, true, 10)); // expected output: true
+        assertFalse(Bank.getToegangVault(false, true, 5)); // expected output: false
     }
+
+    /**
+     * Test de toegang voor de bank met een modified condition/decision coverage test
+     */
     @Test
     public void TestBankToegangModified(){
-        // Test case 1: isbaas is true
-        assertTrue(Bank.getToegangVault(true, true, false, 0));
+        // Test case 1: baas heeft toegang
+        assertTrue(Bank.getToegangVault(true, false, 8));
+        // Test case 2: manager met meer dan 8 jaar in dienst heeft toegang
+        assertTrue(Bank.getToegangVault(false, true, 9));
 
-        // Test case 2: iswerknemer is false
-        assertFalse(Bank.getToegangVault(false, false, false, 0));
+        // Test case 3: manager met minder dan 8 jaar in dienst heeft geen toegang tot kluis
+        assertFalse(Bank.getToegangVault(false, true, 7));
 
-        // Test case 3: iswerknemer is true, ismanager is true, jareninDienst > 8
-        assertTrue(Bank.getToegangVault(true, false, true, 10));
+        // Test case 4: werknemer heeft geen toegang tot kluis
+        assertFalse(Bank.getToegangVault(false, false, 2));
 
-        // Test case 4: iswerknemer is true, ismanager is true, jareninDienst < 8
-        assertFalse(Bank.getToegangVault(true, false, true, 5));
-
-        // Test case 5: iswerknemer is true, ismanager is false
-        assertFalse(Bank.getToegangVault(true, false, false, 0));
+        // Test case 5: klant heeft geen toegang tot kluis
+        assertFalse(Bank.getToegangVault(false, false, 0));
     }
+
+    /**
+     * Test de toegang voor de bank met een multiple condition coverage test
+     */
     @Test
     public void TestBankToegangMultible(){
-        // Test case 1: isbaas is true
-        boolean result1 = Bank.getToegangVault(false, false, false, 0);
-        assertFalse(result1);
+        // Test case 1: baas heeft toegang tot de kluis en kassa
+        assertTrue(Bank.getToegangVault(true, false, 0));
 
-        // Test case 2: iswerknemer is false
-        boolean result2 = Bank.getToegangVault(true, false, false, 0);
-        assertFalse(result2);
+        // Test case 2: manager heeft toegang tot de kluis en kassa
+        assertTrue(Bank.getToegangVault(false, true, 9));
 
-        // Test case 3: iswerknemer is true, ismanager is true, jareninDienst > 8
-        boolean result3 = Bank.getToegangVault(true, false, true, 4);
-        assertFalse(result3);
+        // Test case 3: manager heeft toegang tot de kassa, maar niet de kluis
+        assertFalse(Bank.getToegangVault(false, true, 7));
 
-        // Test case 4: iswerknemer is true, ismanager is true, jareninDienst < 8
-        boolean result4 = Bank.getToegangVault(true, false, true, 9);
-        assertTrue(result4);
-
-        // Test case 5: iswerknemer is true, ismanager is false
-        boolean result5 = Bank.getToegangVault(true, true, false, 0);
-        assertTrue(result5);
-
-        // Test case 6: iswerknemer is true, ismanager is false
-        boolean result6 = Bank.getToegangVault(true, true, false, 4);
-        assertTrue(result6);
-
-        // Test case 7: iswerknemer is true, ismanager is false
-        boolean result7 = Bank.getToegangVault(true, true, false, 9);
-        assertTrue(result7);
-
-        // Test case 8: iswerknemer is true, ismanager is false
-        boolean result8 = Bank.getToegangVault(true, true, true, 0);
-        assertTrue(result8);
-
-        // Test case 9: iswerknemer is true, ismanager is false
-        boolean result9 = Bank.getToegangVault(true, true, true, 4);
-        assertTrue(result9);
-
-        // Test case 10: iswerknemer is true, ismanager is false
-        boolean result10 = Bank.getToegangVault(true, true, true, 9);
-        assertTrue(result10);
+        // Test case 4: werknemer heeft geen toegang tot de kluis of kassa
+        assertFalse(Bank.getToegangVault(false, false, 0));
     }
 }
