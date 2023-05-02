@@ -63,18 +63,19 @@ public class TestBankToegang {
      */
     @Test
     public void TestBankToegangModified(){
-        // Test case 1: baas heeft toegang
-        assertTrue(Bank.getToegangVault(true, false, 8));
-        // Test case 2: manager met meer dan 8 jaar in dienst heeft toegang
-        assertTrue(Bank.getToegangVault(false, true, 9));
 
-        // Test case 3: manager met minder dan 8 jaar in dienst heeft geen toegang tot kluis
+        // Testcase 1: De baas heeft toegang tot de kluis en kassa
+        assertTrue(Bank.getToegangVault(true, false, 0));
+        assertFalse(Bank.getToegangVault(false, false, 0));
+
+        // Testcase 2: De manager heeft meer dan 8 jaar in dienst en heeft toegang tot de kluis en kassa
+        assertTrue(Bank.getToegangVault(false, true, 9));
+        assertFalse(Bank.getToegangVault(false, true, 8));
+
+        // Testcase 3: De manager heeft minder dan 8 jaar in dienst en heeft alleen toegang tot de kassa
         assertFalse(Bank.getToegangVault(false, true, 7));
 
-        // Test case 4: werknemer heeft geen toegang tot kluis
-        assertFalse(Bank.getToegangVault(false, false, 2));
-
-        // Test case 5: klant heeft geen toegang tot kluis
+        // Testcase 4: Er is geen
         assertFalse(Bank.getToegangVault(false, false, 0));
     }
 
@@ -83,16 +84,28 @@ public class TestBankToegang {
      */
     @Test
     public void TestBankToegangMultible(){
-        // Test case 1: baas heeft toegang tot de kluis en kassa
-        assertTrue(Bank.getToegangVault(true, false, 0));
+        // Test case 1: alle drie de voorwaarden zijn waar
+        assertTrue(Bank.getToegangVault(true, true, 9));
 
-        // Test case 2: manager heeft toegang tot de kluis en kassa
-        assertTrue(Bank.getToegangVault(false, true, 9));
+        // Test case 2: isbaas is waar, ismanager en jareninDienst zijn niet van belang
+        assertTrue(Bank.getToegangVault(true, false, 4));
 
-        // Test case 3: manager heeft toegang tot de kassa, maar niet de kluis
-        assertFalse(Bank.getToegangVault(false, true, 7));
+        // Test case 3: ismanager is waar en jareninDienst is minder dan 8
+        assertFalse(Bank.getToegangVault(false, true, 5));
 
-        // Test case 4: werknemer heeft geen toegang tot de kluis of kassa
-        assertFalse(Bank.getToegangVault(false, false, 0));
+        // Test case 4: ismanager is waar en jareninDienst is gelijk aan 8
+        assertFalse(Bank.getToegangVault(false, true, 8));
+
+        // Test case 5: ismanager is waar en jareninDienst is meer dan 8
+        assertTrue(Bank.getToegangVault(false, true, 10));
+
+        // Test case 6: isbaas en ismanager zijn onwaar, jareninDienst is minder dan 8
+        assertFalse(Bank.getToegangVault(false, false, 5));
+
+        // Test case 7: isbaas en ismanager zijn onwaar, jareninDienst is gelijk aan 8
+        assertFalse(Bank.getToegangVault(false, false, 8));
+
+        // Test case 8: isbaas en ismanager zijn onwaar, jareninDienst is meer dan 8
+        assertFalse(Bank.getToegangVault(false, false, 10));
     }
 }
