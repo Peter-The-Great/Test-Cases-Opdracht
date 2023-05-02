@@ -6,7 +6,7 @@ public class Main {
      * @param args
      */
     public static void main(String[] args) {
-        String toegang = Bank.getToegangVault(true, false, true, 9);
+        Boolean toegang = Bank.getToegangVault(true, false, true, 9);
         System.out.println(toegang);
     }
 }
