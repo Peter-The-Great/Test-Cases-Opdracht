@@ -1,5 +1,6 @@
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+
 import org.pjotr.Bank;
 import org.pjotr.Bank2;
 
@@ -163,23 +164,34 @@ public class TestBankToegang {
      */
     @Test
     public void TestBankToegangPairwise(){
-        // Pairwise testing coverage
+        // Testcase 1: alle waarden zijn minimumwaarden
+        assertFalse(Bank2.getToegangVault(false, false, 1, 16));
 
-        // Set 1: isbaas
-        assertTrue(Bank2.getToegangVault(true, false, 10, 25));
-        assertTrue(Bank2.getToegangVault(true, true, 1, 25));
+        // Testcase 2: isbaas = true en de overige waarden zijn minimumwaarden
+        assertTrue(Bank2.getToegangVault(true, false, 1, 16));
 
-        // Set 2: ismanager
-        assertFalse(Bank2.getToegangVault(false, true, 3, 25));
-        assertTrue(Bank2.getToegangVault(false, true, 10, 25));
+        // Testcase 3: ismanager = true en jareninDienst > 8 en leeftijd > 18 en leeftijd < 65
+        assertTrue(Bank2.getToegangVault(false, true, 9, 19));
 
-        // Set 3: jareninDienst
-        assertFalse(Bank2.getToegangVault(false, true, 2, 30));
-        assertTrue(Bank2.getToegangVault(false, true, 9, 30));
+        // Testcase 4: ismanager = true en jareninDienst <= 8 en leeftijd > 18 en leeftijd < 65
+        assertFalse(Bank2.getToegangVault(false, true, 8, 19));
 
-        // Set 4: leeftijd
-        assertFalse(Bank2.getToegangVault(false, true, 10, 16));
-        assertFalse(Bank2.getToegangVault(false, true, 10, 70));
-        assertTrue(Bank2.getToegangVault(false, true, 10, 30));
+        // Testcase 5: leeftijd = 16 en de overige waarden zijn maximumwaarden
+        assertFalse(Bank2.getToegangVault(false, false, 0, 16));
+
+        // Testcase 6: isbaas = true en de overige waarden zijn maximumwaarden
+        assertTrue(Bank2.getToegangVault(true, false, 30, 64));
+
+        // Testcase 7: ismanager = true en jareninDienst > 8 en leeftijd = 65
+        assertFalse(Bank2.getToegangVault(false, true, 9, 65));
+
+        // Testcase 8: ismanager = false en leeftijd = 19
+        assertFalse(Bank2.getToegangVault(false, false, 1, 19));
+
+        // Testcase 9: ismanager = true en jareninDienst = 8 en leeftijd = 18
+        assertFalse(Bank2.getToegangVault(false, true, 8, 18));
+
+        // Testcase 10: alle waarden zijn maximumwaarden
+        assertFalse(Bank2.getToegangVault(false, false, 30, 65));
     }
 }
