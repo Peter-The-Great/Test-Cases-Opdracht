@@ -1,6 +1,8 @@
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import org.pjotr.Bank;
+import org.pjotr.Bank2;
+
 public class TestBankToegang {
 
     /**
@@ -116,11 +118,21 @@ public class TestBankToegang {
     public void TestBankToegangEquivelent(){
         // Testen van geldige input
         // Testen van isBaas
-        assertTrue(Bank.getToegangVault(true, false, 0)); // Equivalentieklasse: isbaas = true
-        assertFalse(Bank.getToegangVault(false, false, 0)); // Equivalentieklasse: isbaas = false, ismanager = false
-        assertFalse(Bank.getToegangVault(false, true, 7)); // Equivalentieklasse: isbaas = false, ismanager = true, jareninDienst < 8
-        assertFalse(Bank.getToegangVault(false, true, 8)); // Equivalentieklasse: isbaas = false, ismanager = true, jareninDienst = 8
-        assertTrue(Bank.getToegangVault(false, true, 9)); // Equivalentieklasse: isbaas = false, ismanager = true, jareninDienst > 8
+
+        //Testcase 1: isbaas = true
+        assertTrue(Bank.getToegangVault(true, false, 0));
+
+        //Testcase 2: isbaas = false
+        assertFalse(Bank.getToegangVault(false, false, 0));
+
+        //Testcase 3: ismanager = true
+        assertFalse(Bank.getToegangVault(false, true, 7));
+
+        //Testcase 4: ismanager = false
+        assertFalse(Bank.getToegangVault(false, true, 8));
+        
+        //Testcase 5: jareninDienst < 8
+        assertTrue(Bank.getToegangVault(false, true, 9));
 
         // Testen van ongeldige input
         assertFalse(Bank.getToegangVault(false, true, -1)); // Equivalentieklasse: jareninDienst < 0
@@ -151,28 +163,23 @@ public class TestBankToegang {
      */
     @Test
     public void TestBankToegangPairwise(){
-        // Test case 1: isbaas = false, ismanager = false, jareninDienst = 0
-        assertFalse(Bank.getToegangVault(false, false, 0));
+        // Pairwise testing coverage
 
-        // Test case 2: isbaas = false, ismanager = true, jareninDienst = 1
-        assertFalse(Bank.getToegangVault(false, true, 1));
+        // Set 1: isbaas
+        assertTrue(Bank2.getToegangVault(false, true, 10, 25));
+        assertTrue(Bank2.getToegangVault(true, true, 1, 25));
 
-        // Test case 3: isbaas = false, ismanager = true, jareninDienst = 8
-        assertFalse(Bank.getToegangVault(false, true, 8));
+        // Set 2: ismanager
+        assertFalse(Bank2.getToegangVault(false, true, 3, 25));
+        assertTrue(Bank2.getToegangVault(false, true, 10, 25));
 
-        // Test case 4: isbaas = false, ismanager = true, jareninDienst = 9
-        assertTrue(Bank.getToegangVault(false, true, 9));
+        // Set 3: jareninDienst
+        assertFalse(Bank2.getToegangVault(false, true, 2, 30));
+        assertTrue(Bank2.getToegangVault(false, true, 9, 30));
 
-        // Test case 5: isbaas = true, ismanager = false, jareninDienst = 0
-        assertTrue(Bank.getToegangVault(true, false, 0));
-
-        // Test case 6: isbaas = true, ismanager = true, jareninDienst = 1
-        assertTrue(Bank.getToegangVault(true, true, 1));
-
-        // Test case 7: isbaas = true, ismanager = true, jareninDienst = 8
-        assertTrue(Bank.getToegangVault(true, true, 8));
-
-        // Test case 8: isbaas = true, ismanager = true, jareninDienst = 9
-        assertTrue(Bank.getToegangVault(true, true, 9));
+        // Set 4: leeftijd
+        assertTrue(Bank2.getToegangVault(false, true, 10, 16));
+        assertTrue(Bank2.getToegangVault(false, true, 10, 70));
+        assertTrue(Bank2.getToegangVault(false, true, 10, 30));
     }
 }
