@@ -14,15 +14,10 @@ public class Bank2 {
             System.out.println("De baas heeft toegang tot de kluis en kassa");
             return true;
         }else{
-            if(ismanager) {
+            if(ismanager && leeftijd > 18 && leeftijd < 65) {
                 if(jareninDienst > 8){
-                    if(leeftijd > 18 && leeftijd < 65){
-                        System.out.println("De manager heeft toegang tot de kluis en kassa");
-                        return true;
-                    }else{
-                        System.out.println("De manager heeft toegang tot de kluis en kassa");
-                        return true;
-                    }
+                    System.out.println("De manager heeft toegang tot de kluis en kassa");
+                    return true;
                 }else{
                     System.out.println("De manager heeft toegang tot de kassa, maar niet de kluis");
                     return false;

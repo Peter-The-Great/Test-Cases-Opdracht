@@ -166,7 +166,7 @@ public class TestBankToegang {
         // Pairwise testing coverage
 
         // Set 1: isbaas
-        assertTrue(Bank2.getToegangVault(false, true, 10, 25));
+        assertTrue(Bank2.getToegangVault(true, false, 10, 25));
         assertTrue(Bank2.getToegangVault(true, true, 1, 25));
 
         // Set 2: ismanager
@@ -178,8 +178,8 @@ public class TestBankToegang {
         assertTrue(Bank2.getToegangVault(false, true, 9, 30));
 
         // Set 4: leeftijd
-        assertTrue(Bank2.getToegangVault(false, true, 10, 16));
-        assertTrue(Bank2.getToegangVault(false, true, 10, 70));
+        assertFalse(Bank2.getToegangVault(false, true, 10, 16));
+        assertFalse(Bank2.getToegangVault(false, true, 10, 70));
         assertTrue(Bank2.getToegangVault(false, true, 10, 30));
     }
 }
