@@ -5,16 +5,16 @@ public class Bank {
      * Deze checkt of een medewerker toegang heeft tot de kluis en kassa.
      * @param isbaas
      * @param ismanager
-     * @param jareninDienst
+     * @param heeftKaart
      * @return boolean false of true
      */
-    public static boolean getToegangVault(boolean isbaas, boolean ismanager, int jareninDienst) {
+    public static boolean getToegangVault(boolean isbaas, boolean ismanager, boolean heeftKaart) {
         if(isbaas){
             System.out.println("De baas heeft toegang tot de kluis en kassa");
             return true;
         }else{
             if (ismanager) {
-                if(jareninDienst > 8){
+                if(heeftKaart){
                     System.out.println("De manager heeft toegang tot de kluis en kassa");
                     return true;
                 }else{
