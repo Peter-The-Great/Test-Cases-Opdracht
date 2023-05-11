@@ -1,6 +1,13 @@
 package org.pjotr;
 
 public class Bank3 {
+    /**
+     * Deze checkt of een medewerker toegang heeft tot de kluis en kassa.
+     * @param isbaas
+     * @param ismanager
+     * @param leeftijd
+     * @return boolean false of true
+     */
     public static boolean getToegangVault(boolean isbaas, boolean ismanager, int leeftijd) {
         if(leeftijd >= 18 && leeftijd < 65){
             if(isbaas){

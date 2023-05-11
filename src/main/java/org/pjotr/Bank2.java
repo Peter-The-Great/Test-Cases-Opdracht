@@ -10,7 +10,7 @@ public class Bank2 {
      * @return boolean false of true
      */
     public static boolean getToegangVault(boolean isbaas, boolean ismanager, int jareninDienst, int leeftijd){
-        if(leeftijd >= 18){
+        if(leeftijd >= 16){
             if(isbaas){
                 System.out.println("De baas heeft toegang tot de kluis en kassa");
                 return true;
