@@ -144,34 +144,50 @@ public class TestBankToegang {
      */
     @Test
     public void TestBankToegangPairwise(){
-        // Testcase 1: alle waarden zijn minimumwaarden
-        assertFalse(Bank2.getToegangVault(false, false, 1, 18));
-
-        // Testcase 2: isbaas = true en de overige waarden zijn minimumwaarden
-        assertTrue(Bank2.getToegangVault(true, false, 1, 18));
-
-        // Testcase 3: ismanager = true en jareninDienst > 8 en leeftijd > 18 en leeftijd < 65
-        assertTrue(Bank2.getToegangVault(false, true, 9, 19));
-
-        // Testcase 4: ismanager = true en jareninDienst <= 8 en leeftijd > 18 en leeftijd < 65
-        assertFalse(Bank2.getToegangVault(false, true, 8, 19));
-
-        // Testcase 5: leeftijd = 16 en de overige waarden zijn maximumwaarden
-        assertFalse(Bank2.getToegangVault(false, false, 0, 18));
-
-        // Testcase 6: isbaas = true en de overige waarden zijn maximumwaarden
-        assertTrue(Bank2.getToegangVault(true, false, 30, 64));
-
-        // Testcase 7: ismanager = true en jareninDienst > 8 en leeftijd = 65
-        assertFalse(Bank2.getToegangVault(false, true, 9, 65));
-
-        // Testcase 8: ismanager = false en leeftijd = 19
-        assertFalse(Bank2.getToegangVault(false, false, 1, 19));
-
-        // Testcase 9: ismanager = true en jareninDienst = 8 en leeftijd = 18
-        assertFalse(Bank2.getToegangVault(false, true, 8, 18));
-
-        // Testcase 10: alle waarden zijn maximumwaarden
-        assertFalse(Bank2.getToegangVault(false, false, 30, 65));
+        
+        // Test case 1: (isbaas = true, ismanager = false, jareninDienst = 8, leeftijd = 65)
+        assertTrue(Bank2.getToegangVault(true,false,8,65));
+        
+        // Test case 2: (isbaas = true, ismanager = true, jareninDienst = 9, leeftijd = 16)
+        assertTrue(Bank2.getToegangVault(true,true,9,16));
+        
+        // Test case 3: (isbaas = false, ismanager = true, jareninDienst = 8, leeftijd = 15)
+        assertFalse(Bank2.getToegangVault(false,true,8,15));
+        
+        // Test case 4: (isbaas = false, ismanager = true, jareninDienst = 7, leeftijd = 65)
+        assertFalse(Bank2.getToegangVault(false,true,7,65));
+        
+        // Test case 5: (isbaas = false, ismanager = false, jareninDienst = 9, leeftijd = 18)
+        assertFalse(Bank2.getToegangVault(false,false,9,18));
+        
+        // Test case 6: (isbaas = false, ismanager = false, jareninDienst = 9, leeftijd = 65)
+        assertFalse(Bank2.getToegangVault(false,false,9,65));
+        
+        // Test case 7: (isbaas = false, ismanager = true, jareninDienst = 8, leeftijd = 64)
+        assertFalse(Bank2.getToegangVault(false,true,8,64));
+        
+        // Test case 8: (isbaas = true, ismanager = false, jareninDienst = 7, leeftijd = 18)
+        assertTrue(Bank2.getToegangVault(true,false,7,18));
+        
+        // Test case 9: (isbaas = true, ismanager = false, jareninDienst = 7, leeftijd = 16)
+        assertFalse(Bank2.getToegangVault(false,false,7,16));
+        
+        // Test case 10: (isbaas = false, ismanager = true, jareninDienst = 8, leeftijd = 16)
+        assertFalse(Bank2.getToegangVault(false,true,8,16));
+        
+        // Test case 11: (isbaas = true, ismanager = true, jareninDienst = 8, leeftijd = 18)
+        assertTrue(Bank2.getToegangVault(true,true,8,18));
+        
+        // Test case 12: (isbaas = true, ismanager = false, jareninDienst = 9, leeftijd = 64)
+        assertTrue(Bank2.getToegangVault(true,false,9,64));
+        
+        // Test case 13: (isbaas = true, ismanager = false, jareninDienst = 7, leeftijd = 15)
+        assertFalse(Bank2.getToegangVault(true,false,7,15));
+    
+        // Test case 14: (isbaas = false, ismanager = true, jareninDienst = 9, leeftijd = 15)
+        assertFalse(Bank2.getToegangVault(false,true,9,15));
+    
+        // Test case 15: (isbaas = true, ismanager = true, jareninDienst = 7, leeftijd = 64)
+        assertTrue(Bank2.getToegangVault(true,true,7,64));
     }
 }
