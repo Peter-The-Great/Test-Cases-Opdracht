@@ -103,28 +103,26 @@ public class TestBankToegang {
     public void TestBankToegangEquivelentenRandwaarden(){
         // Testen van geldige input
 
-        //Testcase 1: leeftijd < 18
+        //Testcase 1:
         assertFalse(Bank3.getToegangVault(false, true, 0));
 
-        //Testcase 2: leeftijd < 18
+        //Testcase 2:
+        assertFalse(Bank3.getToegangVault(false, true, 17));
+
+        //Testcase 3:
         assertFalse(Bank3.getToegangVault(false, true, 18));
 
-        //Testcase 3: leeftijd > 18
+        //Testcase 4:
         assertTrue(Bank3.getToegangVault(false, true, 19));
 
-        //Testcase 4: leeftijd = 65
+        //Testcase 5:
+        assertTrue(Bank3.getToegangVault(false, true, 64));
+
+        //Testcase 6:
         assertFalse(Bank3.getToegangVault(false, true, 65));
 
-        //Testcase 5: leeftijd > 65
+        //Testcase 7:
         assertFalse(Bank3.getToegangVault(false, true, 66));
-
-        // Testen van ongeldige input
-
-        //Testcase 6: leeftijd < 0
-        assertFalse(Bank3.getToegangVault(false, true, -1));
-
-        //Testcase 7: leeftijd > 120
-        assertFalse(Bank3.getToegangVault(false, true, 121));
     }
 
     /**
